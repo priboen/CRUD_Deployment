@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sistem Informasi Data Mahasiswa</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+    <script type="text/javascript" src="./js/script.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.js"></script>
+    <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center">Sistem Informasi Data Mahasiswa</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">NIM</th>
+                            <th scope="col">Nama Mahasiswa</th>
+                            <th scope="col">Program Studi</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="dataMahasiswa : ${listDataMahasiswa}">
+                            <td th:text="${dataMahasiswa.id}"></td>
+                            <td th:text="${dataMahasiswa.nim}"></td>
+                            <td th:text="${dataMahasiswa.name}"></td>
+                            <td th:text="${dataMahasiswa.prodi}"></td>
+                            <td>
+                                <a th:href="@{/showFormForUpdate/{id}(id=${dataMahasiswa.id})}"
+                                    class="btn btn-primary">Update</a>
+                                <a th:href="@{/deleteDataMahasiswa/{id}(id=${dataMahasiswa.id})}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-3">
+                <div class="form-group form-vales">
+                    <form action="#" th:action="@{/saveDataMahasiswa}" th:object="${dataMahasiswa}" method="post">
+                        <!--buat drobdown untuk memilih id agar mempermudah edit-->
+                        <input type="hidden" th:field="*{id}">
+                        <input type="text" class="form-control" id="nim" th:field="*{nim}" placeholder="Enter NIM">
+                        <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter Nama">
+                        <input type="text" class="form-control" id="prodi" th:field="*{prodi}" placeholder="Enter Prodi">
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
